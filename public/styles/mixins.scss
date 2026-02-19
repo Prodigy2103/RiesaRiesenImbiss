@@ -1,0 +1,31 @@
+@mixin marpad($pad, $mar) {
+    padding: $pad;
+    margin: $mar;
+}
+
+@mixin fl($jc: center, $alit: center, $flexdir: column, $gap: 0, $rgap: 0, $cgap: 0, ) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $alit;
+    flex-direction: $flexdir;
+}
+
+// Gemeinsames Mixin für den futuristischen Glanz-Effekt
+@mixin cyber-button {
+    border: none;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:active {
+        transform: scale(0.95);
+    }
+}

@@ -1,1 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+@use '../public/styles/all_styles.scss' as all;
+
+/* #region Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    user-select: none; 
+}
+
+html, body {
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    font-family: "Terminus", monospace;
+    color: white;
+}
+/* #endregion */
+
+/* #region Main Layout */
+.layout {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    grid-template-columns: 13rem 1fr;
+    grid-template-rows: 10dvh 90dvh;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar canvas";
+
+    @include all.tablet {
+        grid-template-columns: 100%;
+        grid-template-rows: 6dvh 80dvh 8dvh; 
+        grid-template-areas:
+            "header"
+            "canvas"
+            "sidebar";
+    }
+
+    aside { 
+        grid-area: sidebar; 
+        z-index: 20; 
+    }
+    
+    header { 
+        grid-area: header; 
+        z-index: 10; 
+    }
+}
+/* #endregion */
+
+/* #region Content Area */
+main {
+    grid-area: canvas;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden; 
+
+    .canvas-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    
+    .content-wrapper {
+        position: relative;
+        z-index: 1; 
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: #f5eddc;
+    }
+}
+/* #endregion */
+
+/* #region Typography */
+@font-face {
+    font-family: "Terminus";
+    src: url("/assets/fonts/BricolageGrotesque-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+/* #endregion */
