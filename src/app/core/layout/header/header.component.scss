@@ -8,9 +8,10 @@
 	@include all.size($w: 100%, $h: 10dvh);
 	@include all.fl($alit: center, $jc: end);
 	@include all.marpad($pad: 0 2rem 0 0);
-	background: #4b4d4f;
+	background: linear-gradient(to bottom, #161b22 0%, all.$imbiss-orange 100%);
 	backdrop-filter: blur(12px);
-	border-bottom: 1px solid rgba(all.$white, 0.05);
+	border-bottom: none;
+	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.8);
 	transition: all 0.3s ease-in-out;
 
 	&.scrolled {
@@ -42,7 +43,8 @@
 				filter: drop-shadow(0.05rem 0.05rem 0.2rem all.$white);
 			}
 		}
-	/* #endregion */
+
+		/* #endregion */
 
 		/* #region navigation */
 		nav ul {
@@ -54,7 +56,8 @@
 				@include all.marpad($pad: 0.2rem 0);
 				position: relative;
 				text-decoration: none;
-				color: rgba(all.$white, 0.5);
+				color: all.$white;
+				text-shadow: 0.3rem 0.3rem 0.6rem all.$imbiss-dark;
 				font: 600 1.3rem 'Orbitron', sans-serif;
 				transition: color 0.5s ease;
 
@@ -68,7 +71,6 @@
 				}
 
 				&:hover {
-					color: all.$imbiss-orange;
 
 					&::after {
 						width: 100%;
@@ -79,4 +81,5 @@
 		/* #endregion */
 	}
 }
+
 /* #endregion */
