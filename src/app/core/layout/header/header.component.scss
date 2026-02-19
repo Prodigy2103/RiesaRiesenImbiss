@@ -1,0 +1,82 @@
+/* #region imports */
+@use '../../../../../public/styles/all_styles.scss' as all;
+/* #endregion */
+
+/* #region :host */
+:host {
+	@include all.absolute($pos: sticky, $top: 0);
+	@include all.size($w: 100%, $h: 10dvh);
+	@include all.fl($alit: center, $jc: end);
+	@include all.marpad($pad: 0 2rem 0 0);
+	background: #4b4d4f;
+	backdrop-filter: blur(12px);
+	border-bottom: 1px solid rgba(all.$white, 0.05);
+	transition: all 0.3s ease-in-out;
+
+	&.scrolled {
+		background: rgba(10, 10, 10, 0.98);
+		border-bottom: 1px solid rgba(all.$imbiss-orange, 0.4);
+	}
+
+	/* #region header */
+	header {
+		@include all.fl($alit: center, $jc: flex-end);
+		@include all.marpad($pad: 0 2rem 0 0);
+		width: 100%;
+
+		@include all.tablet {
+			justify-content: space-between;
+		}
+
+		.header-logo {
+			display: none;
+
+			@include all.tablet {
+				display: flex;
+				justify-content: space-between;
+			}
+
+			img {
+				width: 5rem;
+				margin-left: 2rem;
+				filter: drop-shadow(0.05rem 0.05rem 0.2rem all.$white);
+			}
+		}
+	/* #endregion */
+
+		/* #region navigation */
+		nav ul {
+			@include all.fl($gap: 2.5rem);
+			@include all.marpad();
+			list-style: none;
+
+			a {
+				@include all.marpad($pad: 0.2rem 0);
+				position: relative;
+				text-decoration: none;
+				color: rgba(all.$white, 0.5);
+				font: 600 1.3rem 'Orbitron', sans-serif;
+				transition: color 0.5s ease;
+
+				&::after {
+					content: '';
+					@include all.absolute($left: 0, $bottom: 0);
+					@include all.size($w: 0, $h: 0.1rem);
+					background: all.$imbiss-orange;
+					box-shadow: 0 0 8px all.$imbiss-orange;
+					transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				}
+
+				&:hover {
+					color: all.$imbiss-orange;
+
+					&::after {
+						width: 100%;
+					}
+				}
+			}
+		}
+		/* #endregion */
+	}
+}
+/* #endregion */

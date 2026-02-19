@@ -1,0 +1,33 @@
+@use '../../../../../public//styles/all_styles.scss' as all;
+
+:host {
+	@include all.size($w: 100%, $h: 100dvh);
+	@include all.fl($flexdir: column, $alit: center);
+	@include all.absolute($pos: sticky, $top: 0);
+	background: linear-gradient(180deg, all.$imbiss-orange 0%, #161b22 100%);
+	box-sizing: border-box;
+	box-shadow: 0.1rem 0.2rem 0.5rem #1c252f;
+	z-index: 10;
+
+	.logo {
+		@include all.fl($jc: center);
+		width: 100%;
+
+		img {
+			@include all.size($w: 8.5rem, $h: 8.5rem);
+			@include all.marpad($mar: 2rem 0 0 0, $pad: 0.2rem);
+			@include all.borRad($thick: 0.1rem, $design: solid, $c: rgba(all.$white, 0.15), $radius: 50%);
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+			@include all.tablet {
+                display: none;
+            }
+
+			&:hover {
+                transform: scale(1.05) rotate(5deg);
+                background: rgba(all.$white, 0.1);
+                filter: brightness(1.1) drop-shadow(0 0 20px rgba(all.$imbiss-orange, 0.6));
+            }
+		}
+	}
+}
