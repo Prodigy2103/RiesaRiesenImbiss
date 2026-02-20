@@ -1,1 +1,4 @@
-<p>neon-button works!</p>
+<button class="neon-btn" [class.primary]="variant() === 'primary'" [class.ghost]="variant() === 'ghost'"
+	[class.danger]="variant() === 'danger'" [disabled]="disabled()">
+	<ng-content />
+</button>

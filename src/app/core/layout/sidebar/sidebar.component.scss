@@ -9,6 +9,11 @@
 	box-shadow: 0.1rem 0.2rem 0.5rem #1c252f;
 	z-index: 10;
 
+	@include all.tablet {
+		height: 10dvh;
+		background: linear-gradient(180deg, all.$imbiss-orange 0%, #161b22 90%);
+	}
+
 	.logo {
 		@include all.fl($jc: center);
 		width: 100%;
@@ -20,14 +25,56 @@
 			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
 			@include all.tablet {
-                display: none;
-            }
+				display: none;
+			}
 
 			&:hover {
-                transform: scale(1.05) rotate(5deg);
-                background: rgba(all.$white, 0.1);
-                filter: brightness(1.1) drop-shadow(0 0 20px rgba(all.$imbiss-orange, 0.6));
-            }
+				transform: scale(1.05) rotate(5deg);
+				background: rgba(all.$white, 0.1);
+				filter: brightness(1.1) drop-shadow(0 0 20px rgba(all.$imbiss-orange, 0.6));
+			}
+		}
+	}
+
+	.sidebar {
+		@include all.size($w: 100%);
+		@include all.fl($flexdir: column, $alit: center, $jc: center);
+		flex-grow: 1;
+
+		@include all.tablet {
+			@include all.fl();
+		}
+
+		a {
+			@include all.absolute($pos: relative);
+			@include all.fl($display: block);
+			@include all.marpad($pad: 1rem 1.2rem);
+			@include all.text-style($align: center, $case: uppercase, $spacing: 0.1rem);
+			color: all.$white;
+			font: 600 1rem;
+			transform: all 0.3s ease;
+			width: 100%;
+
+			&.active {
+				color: all.$white;
+				background: linear-gradient(90deg, rgba(all.$imbiss-orange, 0.1) 0%, transparent 100%);
+				text-shadow: 0 0 0.5rem rgba(all.$imbiss-orange, 0.8);
+
+				&::before {
+					content: '';
+					@include all.absolute($left: 0, $top: 20%);
+					@include all.size($w: 0.15rem, $h: 60%);
+					background: all.$imbiss-dark;
+					box-shadow: 0 0 0.95rem all.$imbiss-dark;
+					@include all.borRad($radius: 0 0.3rem 0.3rem 0);
+				}
+			}
+
+			&:hover:not(.active) {
+				color: all.$white;
+				background: rgba(all.$white, 0.05);
+				padding-left: 1.5rem;
+			}
 		}
 	}
 }

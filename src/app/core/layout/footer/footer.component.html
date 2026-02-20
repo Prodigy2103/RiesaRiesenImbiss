@@ -1,0 +1,23 @@
+<footer>
+	<div class="system-news">
+		<div class="monitor-label">SYSTEM_NEWS</div>
+		<div class="news-list">
+			@for (n of news; track n.title) {
+			<div class="news-row" (click)="ui.openNews(n)">
+				<span class="dot" [class.urgent-dot]="n.urgent"></span>
+				<div class="mini-job-item" [class.urgent-text]="n.urgent">{{ n.title }}</div>
+			</div>
+			}
+		</div>
+	</div>
+
+	<div class="system-jobs">
+		<div class="monitor-label">RECRUITMENT</div>
+		@for (job of jobs; track job.title) {
+		<div class="mini-job-item" (click)="ui.openJob(job)">
+			<span class="status-bar" [class.urgent]="job.urgent"></span>
+			{{ job.title }}
+		</div>
+		}
+	</div>
+</footer>

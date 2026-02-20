@@ -7,12 +7,15 @@
 	@include all.absolute($pos: sticky, $top: 0);
 	@include all.size($w: 100%, $h: 10dvh);
 	@include all.fl($alit: center, $jc: end);
-	@include all.marpad($pad: 0 2rem 0 0);
 	background: linear-gradient(to bottom, #161b22 0%, all.$imbiss-orange 100%);
 	backdrop-filter: blur(12px);
 	border-bottom: none;
 	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.8);
 	transition: all 0.3s ease-in-out;
+
+	@include all.tablet {
+		// padding: 0.8rem;
+	}
 
 	&.scrolled {
 		background: rgba(10, 10, 10, 0.98);
@@ -22,11 +25,12 @@
 	/* #region header */
 	header {
 		@include all.fl($alit: center, $jc: flex-end);
-		@include all.marpad($pad: 0 2rem 0 0);
 		width: 100%;
 
 		@include all.tablet {
 			justify-content: space-between;
+			padding: 1rem;
+			gap: 1rem;
 		}
 
 		.header-logo {
@@ -41,6 +45,10 @@
 				width: 5rem;
 				margin-left: 2rem;
 				filter: drop-shadow(0.05rem 0.05rem 0.2rem all.$white);
+
+				@include all.tablet {
+					margin-left: 0.5rem;
+				}
 			}
 		}
 
@@ -48,18 +56,43 @@
 
 		/* #region navigation */
 		nav ul {
-			@include all.fl($gap: 2.5rem);
+			@include all.fl($gap: 1rem);
 			@include all.marpad();
 			list-style: none;
+			width: 50%;
+
+			@include all.notebook {
+				width: 100%;
+				text-align: end;
+				@include all.fl($gap: 0.5rem);
+			}
+
+			@media(max-width: 780px) {
+				@include all.fl($flexdir: column);
+			}
+
+			li {
+				width: fit-content;
+				min-width: 10dvw;
+			}
 
 			a {
 				@include all.marpad($pad: 0.2rem 0);
 				position: relative;
 				text-decoration: none;
+				text-transform: uppercase;
 				color: all.$white;
 				text-shadow: 0.3rem 0.3rem 0.6rem all.$imbiss-dark;
-				font: 600 1.3rem 'Orbitron', sans-serif;
+				font: 600 1rem 'Orbitron', sans-serif;
 				transition: color 0.5s ease;
+				display: block;
+				width: 100%;
+				min-width: 10dvw;
+
+				@media(max-width: 1100px) {
+					min-width: 14dvw;
+					padding-right: 1rem;
+				}
 
 				&::after {
 					content: '';
@@ -73,11 +106,12 @@
 				&:hover {
 
 					&::after {
-						width: 100%;
+						width: 85%;
 					}
 				}
 			}
 		}
+
 		/* #endregion */
 	}
 }

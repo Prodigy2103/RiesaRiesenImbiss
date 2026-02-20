@@ -1,0 +1,43 @@
+@use '../../../../../public/styles/all_styles.scss' as all;
+
+.neon-btn {
+    appearance: none; // Entfernt Browser-Standard
+    background: transparent;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 20px; // Etwas kompakter für Modale
+    font-weight: 900;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:active { transform: scale(0.95); }
+    &:disabled { opacity: 0.4; pointer-events: none; }
+
+    &.primary {
+        background: linear-gradient(135deg, all.$imbiss-orange, #b86a1a);
+        color: all.$white;
+    }
+
+    &.ghost {
+        background: rgba(all.$white, 0.05);
+        border: 1px solid rgba(all.$imbiss-orange, 0.6);
+        color: all.$imbiss-orange;
+        
+        &:hover {
+            background: rgba(all.$imbiss-orange, 0.15);
+            color: all.$white;
+        }
+    }
+
+    &.danger {
+        background: rgba(255, 60, 60, 0.1);
+        border: 1px solid rgba(255, 60, 60, 0.5);
+        color: #ff5a5a;
+        &:hover { background: rgba(255, 60, 60, 0.3); }
+    }
+}

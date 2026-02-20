@@ -1,0 +1,93 @@
+@use '../../../../../public/styles/all_styles.scss' as all;
+
+footer {
+	margin-top: auto;
+	width: 100%;
+	padding: 1rem;
+	box-sizing: border-box;
+	background: rgba(0, 0, 0, 0.3);
+	border-top: 1px solid rgba(all.$imbiss-orange, 0.2);
+
+	.monitor-label {
+		@include all.text-style($align: start, $case: uppercase, $spacing: 0.2rem);
+		@include all.marpad($mar: 0 0 0.3rem 0);
+		font: bold 1rem;
+		color: all.$imbiss-orange;
+		opacity: 0.8;
+	}
+
+	.system-news {
+		@include all.marpad($mar: 0 0 1rem 0);
+
+		.news-list {
+			@include all.fl($flexdir: column, $gap: 0.2rem);
+		}
+
+		.news-row,
+		.mini-job-item {
+			@include all.fl($alit: center, $gap: 0.5rem);
+			cursor: pointer;
+			transition: all 0.2s ease;
+			font-size: 1rem;
+			color: all.$white;
+
+			&:hover {
+				background: rgba(all.$imbiss-orange, 0.3);
+			}
+
+			.dot,
+			.status-bar {
+				flex-shrink: 0;
+
+				&.urgent-dot,
+				&.urgent {
+					background: #ff4444;
+					box-shadow: 0 0 0.5rem #ff4444;
+				}
+			}
+
+			.dot {
+				@include all.size($w: 0.35rem, $h: 0.35rem);
+				background: all.$imbiss-orange;
+				animation: pulse-glow 2s infinite;
+			}
+
+			.status-bar {
+				@include all.size($w: 0.1rem, $h: 0.6rem);
+				background: rgba(all.$white, 0.1);
+			}
+
+			.urgent-text {
+				color: #ff4444;
+				font-weight: bold;
+			}
+		}
+	}
+
+	.system-jobs {
+		@include all.marpad($mar: 0 0 1rem 0);
+
+		.mini-job-item {
+			@include all.fl($alit: center, $gap: 0.5rem);
+			@include all.marpad($mar: 0 0 0.5rem 0);
+			cursor: pointer;
+			transition: all 0.2s ease;
+			font-size: 1rem;
+			color: all.$white;
+
+			&:hover {
+				background: rgba(all.$imbiss-orange, 0.3);
+			}
+
+			.status-bar {
+				@include all.size($w: 0.1rem, $h: 0.6rem);
+				background: rgba(all.$white, 0.1);
+
+				&.urgent {
+					background: #ff4444;
+					box-shadow: 0 0 0.3rem #ff4444;
+				}
+			}
+		}
+	}
+}
