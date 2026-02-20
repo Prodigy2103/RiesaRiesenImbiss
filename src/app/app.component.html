@@ -62,7 +62,9 @@
   <div class="mini-modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
       <span class="code-text">CONTACT</span>
-      <button (click)="ui.closeContact()">[X]</button>
+      <app-neon-button variant="ghost" class="modal-close-neon" (click)="ui.closeContact()">
+        X
+      </app-neon-button>
     </div>
 
     <div class="modal-body">
