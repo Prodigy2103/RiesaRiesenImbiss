@@ -33,9 +33,11 @@
 	border-radius: $radius;
 }
 
-@mixin boxSh($right: 2px, $bottom: 4px, $blur: 2px, $all: 0px, $c: white) {
-	// right , bottom, spread, thick around 
-	box-shadow: $right $bottom $blur $all $c ;
+@mixin text-style($align: center, $case: uppercase, $deco: none, $spacing: auto) {
+    text-align: $align;
+    text-transform: $case;
+    text-decoration: $deco;
+	letter-spacing: $spacing;
 }
 
 @mixin limiter() {
