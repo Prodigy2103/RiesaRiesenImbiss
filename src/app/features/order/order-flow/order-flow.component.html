@@ -1,1 +1,94 @@
-<p>order-flow works!</p>
+<section class="order-flow">
+
+    <div class="step" [class.active]="order.step() === 1">
+        @if (order.step() === 1) {
+        <div class="step-header">
+            <h2>Was darf es sein?</h2>
+        </div>
+        <div class="menu-grid">
+            @for (cat of categories(); track cat.key) {
+            <div class="food-card" (click)="passCategory(cat.key, $event)">
+                <div class="image-container">
+                    <img [src]="cat.img" [alt]="cat.label" />
+                </div>
+                <div class="hover-details">
+                    <p>
+                        @for (part of getDescriptionParts(cat.description); track $index) {
+                        @if (isLink($index)) {
+                        <a class="info-link" (click)="navigateToDetail(part, $event)">
+                            {{ part }}
+                        </a>
+                        } @else {
+                        <span>{{ part }}</span>
+                        }
+                        }
+                    </p>
+                    <div class="btn-info">Wählen</div>
+                </div>
+                <div class="card-info">
+                    <h3>{{ cat.label }}</h3>
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+
+    <div class="step" [class.active]="order.step() === 2">
+        @if (order.step() === 2) {
+        <div class="step-header">
+            <app-neon-button variant="primary" (click)="order.back()">←</app-neon-button>
+            <h2>{{ selectedCategoryLabel() }}</h2>
+            <app-neon-button variant="primary" [disabled]="order.totalItemsCount() === 0" (click)="order.next()">
+                Fertig ({{ order.totalItemsCount() }})
+            </app-neon-button>
+        </div>
+
+        <div class="menu-grid-item">
+            @for (item of filteredItems(); track item.id) {
+            <div class="food-card-item" (click)="selectedItem.set(item)">
+                <div class="image-container">
+                    <img [src]="item.imgPath" loading="lazy" [alt]="item.name" />
+                </div>
+                <div class="hover-details">
+                    <p>{{ item.ingredients }}</p>
+                    <div class="btn-info">Wählen</div>
+                </div>
+
+                <div class="card-info">
+                    <h3>{{ item.name }}</h3>
+                    <p class="price">{{ item.price | number:'1.2-2' }} €</p>
+                </div>
+            </div>
+            }
+        </div>
+
+        @if (selectedItem()) {
+        <div class="modal-overlay" (click)="cancelSelection()">
+            <div class="extras-section" (click)="$event.stopPropagation()">
+                <h3>Extras für {{ selectedItem()?.name }}</h3>
+                <div class="extras-grid">
+                    @for (extra of extrasList; track extra.id) {
+                    <label class="extra-option">
+                        <input type="checkbox" [checked]="order.extras().includes(extra)"
+                            (change)="toggleExtra(extra, $event)" />
+                        {{ extra.name }} (+{{ extra.price | number:'1.2-2' }} €)
+                    </label>
+                    }
+                </div>
+                <div class="actions">
+                    <app-neon-button (click)="confirmOrder()">Hinzufügen</app-neon-button>
+                    <app-neon-button variant="primary" (click)="cancelSelection()">Abbrechen</app-neon-button>
+                </div>
+            </div>
+        </div>
+        }
+        }
+    </div>
+
+    <div class="step" [class.active]="order.step() === 3">
+        @if (order.step() === 3) {
+        <app-order-summary></app-order-summary>
+        }
+    </div>
+</section>

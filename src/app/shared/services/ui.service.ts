@@ -1,55 +1,56 @@
 import { Injectable, signal } from "@angular/core";
+import { Job, News, Contact } from "../interfaces/footer.interface";
 
 @Injectable({ providedIn: 'root' })
 export class UiService {
 	showJobModal = signal(false);
-	selectedJob = signal<any>(null);
+	selectedJob = signal<Job | null>(null);
 	showNewsModal = signal(false);
-	selectedNews = signal<any>(null);
+	selectedNews = signal<News | null>(null);
 	showContactModal = signal(false);
-	selectedContact = signal<any>(null);
+	selectedContact = signal<Contact | null>(null);
 	showSuccessToast = signal(false);
 
 	userName = signal('');
 	userMail = signal('');
 	userMessage = signal('');
 
-	openJob(j: any) {
+	openJob(j: Job) {
 		this.selectedJob.set(j);
 		this.showJobModal.set(true);
 	}
 
-	closeJob() {
-		this.showJobModal.set(false);
-	}
-
-	openNews(n: any) {
+	openNews(n: News) {
 		this.selectedNews.set(n);
 		this.showNewsModal.set(true);
 	}
 
-	closeNews() {
-		this.showNewsModal.set(false);
-	}
+	openContact(data: Job | News | Contact | null) {
+		if (!data) return;
 
-	openContact(data: any) {
+		// Wir mappen die Daten auf ein Contact-Objekt
+		const contactData: Contact = {
+			title: 'title' in data ? data.title : 'Allgemeine Anfrage'
+		};
+
 		this.showJobModal.set(false);
-		this.selectedContact.set(data);
+		this.showNewsModal.set(false);
+		this.selectedContact.set(contactData);
 		this.showContactModal.set(true);
-	}
-
-	closeContact() {
-		this.showContactModal.set(false);
-		this.userName.set('');
 	}
 
 	sendMessage() {
 		const payload = { from: this.userName(), mail: this.userMail(), text: this.userMessage() };
 		console.log('UPLINK_SUCCESS:', payload);
-
 		this.showContactModal.set(false);
 		this.showSuccessToast.set(true);
-
 		setTimeout(() => this.showSuccessToast.set(false), 3000);
+	}
+
+	closeJob() { this.showJobModal.set(false); }
+	closeNews() { this.showNewsModal.set(false); }
+	closeContact() {
+		this.showContactModal.set(false);
+		this.userName.set('');
 	}
 }

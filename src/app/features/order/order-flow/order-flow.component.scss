@@ -1,0 +1,191 @@
+@use '../../../../../public/styles/all_styles.scss' as all;
+
+:host {
+	@include all.size($w: 100%, $h: 90dvh);
+	@include all.fl($jc: center, $alit: center);
+	background: all.$imbiss-bg-light;
+	overflow: hidden;
+	position: relative;
+	padding: 1rem;
+
+	.order-flow {
+		@include all.size($w: 85dvw, $h: 85dvh);
+		@include all.marpad($pad: 3rem, $mar: 0);
+		@include all.borRad($c: rgba(255, 255, 255, 0.5), $radius: 1.6rem, $thick: 1px, $design: solid);
+		position: relative;
+		background: all.$imbiss-order-bg;
+		backdrop-filter: blur(1rem);
+		box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.8);
+		animation: slideInLeft 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+		color: all.$white;
+		overflow-y: auto;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.step-header {
+			@include all.fl($jc: space-between, $alit: center);
+			font: 400 1.6rem 'Orbitron Medium', sans-serif;
+			margin-bottom: 0.5rem;
+			color: all.$imbiss-dark;
+		}
+
+		.menu-grid,
+		.menu-grid-item {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+			gap: 2rem;
+			padding: 1.3rem 0;
+		}
+
+		.food-card,
+		.food-card-item {
+			@include all.borRad($c: rgba(all.$white, 0.08), $radius: 1rem, $thick: 0.1rem, $design: solid);
+			position: relative;
+			background: all.$imbiss-light-dark;
+			overflow: hidden;
+			aspect-ratio: 0.85 / 0.85;
+			display: flex;
+			flex-direction: column;
+			cursor: pointer;
+			transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+			&:hover,
+			&.active {
+				transform: translateY(-8px);
+				border-color: all.$imbiss-orange;
+				box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.6), 0 0 1.8rem rgba(all.$imbiss-orange, 0.35);
+
+				.image-container img {
+					transform: scale(1.1);
+					filter: blur(0.1rem) brightness(0.7);
+				}
+
+				.hover-details {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.image-container {
+				flex: 1;
+				overflow: hidden;
+				background-image: url('../../../../../public/assets/CatImg/imgContainerBg.webp');
+
+				img {
+					@include all.size($w: 100%, $h: 100%);
+					object-fit: cover;
+					transition: 0.5s ease;
+				}
+			}
+
+			.card-info {
+				@include all.fl($flexdir: column, $jc: center, $alit: center);
+				min-height: 8dvh;
+				height: auto;
+
+				h3 {
+					margin-bottom: 0.6rem;
+					font-size: 1rem;
+				}
+			}
+
+			.hover-details {
+				@include all.fl($jc: center, $alit: center, $flexdir: column, $gap: 2rem);
+				position: absolute;
+				inset: 0;
+				background: rgba(all.$imbiss-dark, 0.8);
+				backdrop-filter: blur(0.4rem);
+				opacity: 0;
+				transform: translateY(1rem);
+				transition: 0.6s ease;
+				padding: 1rem;
+				pointer-events: none;
+				border-radius: 1.2rem;
+
+				.info-link {
+					position: relative;
+					cursor: pointer;
+					color: all.$imbiss-orange;
+					text-decoration: underline;
+					pointer-events: all;
+				}
+
+				.btn-info {
+					background: all.$imbiss-orange;
+					color: all.$white;
+					padding: 0.5rem 1.2rem;
+					border-radius: 1.6rem;
+					font-weight: 900;
+					pointer-events: auto;
+					box-shadow: 0 0 15px rgba(all.$imbiss-orange, 0.5);
+
+					&:active {
+						transform: scale(0.9);
+						transition: 0.05s;
+					}
+				}
+
+				p,
+				h4 {
+					font-size: 1rem;
+					margin-top: 1rem;
+					text-align: center;
+				}
+			}
+		}
+
+		.step {
+			display: none;
+
+			&.active {
+				display: block;
+				animation: fadeIn 0.4s ease-out;
+			}
+		}
+
+		.actions {
+			display: flex;
+			gap: 2rem;
+			padding: 1rem 0 0 0;
+		}
+
+		.extras-section {
+			background: all.$imbiss-light-grey;
+			padding: 0.8rem;
+			border-radius: 1rem;
+			border: 1px solid rgba(all.$white, 0.05);
+
+			h3 {
+				color: all.$white;
+				margin-bottom: 1rem;
+				text-transform: uppercase;
+				font-size: 1rem;
+			}
+
+			.extras-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+				gap: 0.2rem;
+			}
+		}
+
+		.extra-option {
+			@include all.fl($jc: space-between, $alit: center);
+			padding: 0.6rem;
+			border-radius: 0.6rem;
+			transition: 0.2s;
+
+			&:hover {
+				background: rgba(all.$white, 0.07);
+			}
+
+			input {
+				accent-color: all.$imbiss-orange;
+				cursor: pointer;
+			}
+		}
+	}
+}

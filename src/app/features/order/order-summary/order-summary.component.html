@@ -1,1 +1,80 @@
-<p>order-summary works!</p>
+<div id="orderflow-summary">
+    <div class="step-header">
+        <app-neon-button variant="ghost" (click)="order.back()">←</app-neon-button>
+        <h2>Zusammenfassung</h2>
+    </div>
+    <div class="summary-container">
+        <div class="summary-list">
+            @for (item of order.items(); track $index) {
+            <div class="summary-row">
+                <div class="item-info">
+                    <div class="main-item-line">
+                        @for (crowd of [item.quantity]; track crowd) {
+                        <span class="qty animate-pop">
+                            {{ crowd }}x
+                        </span>
+                        }
+                        <span class="name">{{ item.name }}</span>
+                    </div>
+
+                    @if (item.selectedExtras && item.selectedExtras.length > 0) {
+                    <div class="item-extras-inline">
+                        @for (extra of item.selectedExtras; track extra.id) {
+                        <span class="extra-badge">+ {{ extra.name }}</span>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="item-controls">
+                    <button class="control-btn" (click)="order.decrementQuantity($index)">−</button>
+                    <span class="item-price">{{ (item.price * item.quantity) | number:'1.2-2' }} €</span>
+                    <button class="control-btn" (click)="order.incrementQuantity($index)">+</button>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="extras-local">
+            <div class="customer-btn">
+                <div class="customer-form">
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input type="text" [(ngModel)]="customerName" placeholder="Dein Name" />
+                    </div>
+                    @if (order.deliveryType() === 'delivery') {
+                    <div class="input-group">
+                        <label>Adresse</label>
+                        <input type="text" [(ngModel)]="customerAddress" placeholder="Straße, Hausnummer, PLZ" />
+                    </div>
+                    }
+                    <div class="input-group">
+                        <label>Telefon</label>
+                        <input type="tel" [(ngModel)]="customerPhone" placeholder="Für Rückfragen" />
+                    </div>
+                </div>
+                <div class="delivery-toggle">
+                    <app-neon-button variant="ghost" [class.active]="order.deliveryType() === 'delivery'"
+                        (click)="order.deliveryType.set('delivery')">🚚 Lieferung</app-neon-button>
+                    <app-neon-button variant="ghost" [class.active]="order.deliveryType() === 'pickup'"
+                        (click)="order.deliveryType.set('pickup')">🏃 Abholung</app-neon-button>
+                </div>
+            </div>
+        </div>
+
+        <div class="total-bar">
+            <p>Zwischensumme: {{ order.total() | number:'1.2-2' }} €</p>
+            @if (order.deliveryType() === 'delivery') {
+            <p>Liefergebühr: {{ order.deliveryFee() | number:'1.2-2' }} €</p>
+            }
+            <h3 class="final-price">
+                Gesamt: <span>{{ order.finalTotal() | number:'1.2-2' }} €</span>
+            </h3>
+        </div>
+        <app-neon-button class="submit-btn"
+            [disabled]="!customerName || !customerPhone || (order.deliveryType() === 'delivery' && !customerAddress)"
+            (click)="submitOrder()">
+            Bestellung abschicken
+        </app-neon-button>
+    </div>
+</div>

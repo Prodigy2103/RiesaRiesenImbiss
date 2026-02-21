@@ -1,0 +1,158 @@
+@use '../../../../../public/styles/all_styles.scss' as all;
+
+:host {
+	display: block;
+	width: 100%;
+	overflow-y: none;
+}
+
+#orderflow-summary {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	.step-header {
+		@include all.fl($jc: space-between, $alit: center);
+
+		h2 {
+			font: 400 1.8rem 'Orbitron Medium', sans-serif;
+			color: all.$imbiss-dark;
+		}
+	}
+
+	.summary-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		.summary-list {
+			height: 10dvh;
+			overflow-y: auto;
+			padding-right: 5px;
+
+			&::-webkit-scrollbar {
+				width: 4px;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background: all.$imbiss-orange;
+				border-radius: 10px;
+			}
+
+			.summary-row {
+				@include all.fl($jc: space-between, $alit: center);
+				background: rgba(all.$white, 0.05);
+				padding: 1rem;
+				border-radius: 12px;
+				border: 1px solid rgba(all.$white, 0.1);
+
+				.item-info {
+					.qty {
+						background: rgba(all.$imbiss-orange, 0.2);
+						color: all.$imbiss-orange;
+						padding: 2px 8px;
+						border-radius: 6px;
+						font-weight: 800;
+						margin-right: 10px;
+					}
+
+					.name {
+						font-weight: 500;
+					}
+				}
+
+				.item-controls {
+					@include all.fl($alit: center);
+					gap: 1rem;
+
+					.control-btn {
+						background: rgba(all.$white, 0.1);
+						border: 1px solid all.$imbiss-orange;
+						color: all.$white;
+						width: 30px;
+						height: 30px;
+						border-radius: 50%;
+						cursor: pointer;
+						transition: 0.3s;
+
+						&:hover {
+							background: all.$imbiss-orange;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.extras-local {
+		.customer-form {
+			display: flex;
+			flex-direction: column;
+			min-height: 30dvh;
+			gap: 1rem;
+			background: rgba(0, 0, 0, 0.1);
+			padding: 0.5rem;
+			border-radius: 15px;
+
+			.input-group {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+
+				label {
+					font-size: 0.9rem;
+					text-transform: uppercase;
+					opacity: 0.8;
+				}
+
+				input {
+					background: rgba(255, 255, 255, 0.05);
+					border: 1px solid rgba(255, 255, 255, 0.2);
+					padding: 0.8rem;
+					border-radius: 8px;
+					color: white;
+
+					&:focus {
+						border-color: all.$imbiss-orange;
+						outline: none;
+					}
+				}
+			}
+		}
+
+		.delivery-toggle {
+			display: flex;
+			justify-content: center;
+
+			gap: 1rem;
+			margin-top: 0.5rem;
+
+			app-neon-button {
+				flex: 1;
+				max-width: 10rem;
+			}
+		}
+	}
+
+	.total-bar {
+		background: rgba(all.$imbiss-orange, 0.15);
+		padding: 0 1.5rem;
+		border-radius: 12px;
+		text-align: right;
+		min-height: 9dvh;
+
+		.final-price {
+			font-size: 2rem;
+
+			span {
+				color: all.$imbiss-orange;
+				font-weight: 900;
+			}
+		}
+	}
+}
+
+.animate-pop {
+	display: inline-block;
+	animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

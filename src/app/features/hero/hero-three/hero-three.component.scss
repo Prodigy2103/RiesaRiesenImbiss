@@ -20,13 +20,13 @@
 
 	/* #region Welcome Card */
 	.welcome-text {
-		@include all.size($w: 95dvw, $h: 80dvh);
+		@include all.size($w: 100%, $h: 85dvh);
 		@include all.marpad($pad: 3rem, $mar: 1rem);
 		@include all.borRad($c: rgba(255, 255, 255, 0.5), $radius: 1.6rem, $thick: 1px, $design: solid);
 		position: relative;
-		background: all.$white-glass;
+		background: all.$imbiss-order-bg;
 		backdrop-filter: blur(15px);
-		box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.08);
+		box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.8);
 		animation: slideInLeft 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
 
 		.hero-title {
@@ -39,10 +39,24 @@
 			}
 		}
 
-		p {
-			line-height: 1.8;
-			color: rgba(all.$text-main, 0.8);
-			margin-bottom: 2rem;
+		.imbiss-image {
+			@include all.fl($gap: 5rem);
+			height: 20dvh;
+
+			p {
+				line-height: 1.8;
+				color: rgba(all.$text-main, 0.8);
+				margin-bottom: 2rem;
+			}
+
+			img {
+				width: 20%;
+				animation: slideInTopImbiss 5.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+			}
+		}
+
+		.second-images {
+			border: 2px solid red;
 		}
 	}
 
@@ -50,7 +64,7 @@
 
 	/* #region Logo Container */
 	.entry-wrapper {
-		animation: slideInRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+		animation: slideInRight 3.2s cubic-bezier(0.23, 1, 0.32, 1) both;
 
 		.logo-container {
 			@include all.absolute($top: 1rem, $right: 2rem);
@@ -58,7 +72,7 @@
 			background: #787878;
 			padding: 3rem;
 			border-radius: 2rem;
-			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
 			transform-style: preserve-3d;
 			transition: transform 0.1s ease-out;
 			overflow: hidden;

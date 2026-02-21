@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NeonButtonComponent } from "../../../shared/ui/neon-button/neon-button.component";
+import { OrderService } from '../../../shared/services/order.service';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ export class HeroThreeComponent implements OnInit {
   public target = { rx: 0, ry: 0, mx: 50, my: 50 };
   public current = { rx: 0, ry: 0, mx: 50, my: 50 };
   private router = inject(Router);
+  public order = inject(OrderService);
 
   /**
    * Starts the animation loop on initialization.
@@ -76,6 +78,7 @@ export class HeroThreeComponent implements OnInit {
    * Navigates to the order page.
    */
   goToOrder() { 
+    this.order.step.set(1);
     this.router.navigate(['/order']); 
   }
 }
