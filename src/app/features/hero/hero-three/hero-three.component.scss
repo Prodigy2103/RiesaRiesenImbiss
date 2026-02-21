@@ -1,0 +1,100 @@
+@use '../../../../../public/styles/all_styles.scss' as all;
+
+:host {
+	@include all.size($w: 100%, $h: 90dvh);
+	display: block;
+	background: all.$imbiss-bg-light;
+	overflow: hidden;
+	position: relative;
+
+	/* #region Hero Layout */
+	.hero-container {
+		@include all.size($w: 100%, $h: 100%);
+		@include all.fl($alit: center);
+		position: relative;
+		padding: 0 0.15rem;
+		z-index: 5;
+	}
+
+	/* #endregion */
+
+	/* #region Welcome Card */
+	.welcome-text {
+		@include all.size($w: 95dvw, $h: 80dvh);
+		@include all.marpad($pad: 3rem, $mar: 1rem);
+		@include all.borRad($c: rgba(255, 255, 255, 0.5), $radius: 1.6rem, $thick: 1px, $design: solid);
+		position: relative;
+		background: all.$white-glass;
+		backdrop-filter: blur(15px);
+		box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.08);
+		animation: slideInLeft 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+
+		.hero-title {
+			font: 800 2.8rem 'Orbitron Medium', sans-serif;
+			margin-bottom: 1.5rem;
+			color: all.$text-main;
+
+			.highlight {
+				color: all.$imbiss-orange;
+			}
+		}
+
+		p {
+			line-height: 1.8;
+			color: rgba(all.$text-main, 0.8);
+			margin-bottom: 2rem;
+		}
+	}
+
+	/* #endregion */
+
+	/* #region Logo Container */
+	.entry-wrapper {
+		animation: slideInRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+
+		.logo-container {
+			@include all.absolute($top: 1rem, $right: 2rem);
+			@include all.fl($jc: center, $alit: center);
+			background: #787878;
+			padding: 3rem;
+			border-radius: 2rem;
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+			transform-style: preserve-3d;
+			transition: transform 0.1s ease-out;
+			overflow: hidden;
+
+			.shine {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				background: radial-gradient(circle at var(--mx) var(--my),
+						rgba(255, 255, 255, 0.3) 0%,
+						rgba(all.$imbiss-orange, 0.4) 30%,
+						transparent 70%);
+				transform: translateZ(2px);
+				opacity: 0;
+				transition: opacity 0.4s ease;
+			}
+
+			&:hover .shine {
+				opacity: 1;
+			}
+		}
+
+		.logo-card {
+			position: relative;
+			transform-style: preserve-3d;
+			z-index: 5;
+
+			.hero-logo {
+				display: block;
+				max-width: 320px;
+				height: auto;
+				transform: translateZ(80px);
+				filter: drop-shadow(15px 15px 25px rgba(all.$imbiss-orange, 0.4));
+			}
+		}
+	}
+
+	/* #endregion */
+}

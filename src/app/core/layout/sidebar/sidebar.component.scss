@@ -63,10 +63,11 @@
 				&::before {
 					content: '';
 					@include all.absolute($left: 0, $top: 20%);
-					@include all.size($w: 0.15rem, $h: 60%);
+					@include all.size($w: 0.55rem, $h: 60%);
+					@include all.borRad($radius: 0 1rem 1rem 0);
 					background: all.$imbiss-dark;
-					box-shadow: 0 0 0.95rem all.$imbiss-dark;
-					@include all.borRad($radius: 0 0.3rem 0.3rem 0);
+					box-shadow: 0 0 0.95rem all.$white;
+					border: none;
 				}
 			}
 

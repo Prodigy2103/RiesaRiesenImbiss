@@ -3,15 +3,15 @@
 footer {
 	margin-top: auto;
 	width: 100%;
-	padding: 1rem;
+	padding: 0.5rem;
 	box-sizing: border-box;
 	background: rgba(0, 0, 0, 0.3);
 	border-top: 1px solid rgba(all.$imbiss-orange, 0.2);
 
 	.monitor-label {
 		@include all.text-style($align: start, $case: uppercase, $spacing: 0.2rem);
-		@include all.marpad($mar: 0 0 0.3rem 0);
-		font: bold 1rem;
+		@include all.marpad($mar: 0 0 0.7rem 0);
+		font: bold 1.2rem 'Terminus', sans-serif;
 		color: all.$imbiss-orange;
 		opacity: 0.8;
 	}

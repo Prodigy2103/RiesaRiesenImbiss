@@ -8,7 +8,7 @@ import { HeroThreeComponent } from './hero-three/hero-three.component';
 		HeroThreeComponent
 	],
 	template: `
-    <app-hero-three></app-hero-three>
+    <feature-hero-three></feature-hero-three>
 `
 })
 /**
