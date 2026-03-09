@@ -1,93 +1,101 @@
 @use '../../../../../public/styles/all_styles.scss' as all;
 
-footer {
-	margin-top: auto;
-	width: 100%;
-	padding: 0.5rem;
-	box-sizing: border-box;
-	background: rgba(0, 0, 0, 0.3);
-	border-top: 1px solid rgba(all.$imbiss-orange, 0.2);
+.sidebar-footer {
+  width: 100%;
+  padding: 0.8rem 0.6rem 0.6rem;
+  box-sizing: border-box;
+  border-top: 1px solid var(--imbiss-border-dark);
+  background: rgba(255, 140, 0, 0.1); /* Hauch von Imbiss-Orange */
+  backdrop-filter: blur(10px);        /* Der Glas-Effekt */ 
+  flex-shrink: 0;
+}
 
-	.monitor-label {
-		@include all.text-style($align: start, $case: uppercase, $spacing: 0.2rem);
-		@include all.marpad($mar: 0 0 0.7rem 0);
-		font: bold 1.2rem 'Terminus', sans-serif;
-		color: all.$imbiss-orange;
-		opacity: 0.8;
-	}
+.footer-section {
+  margin-bottom: 0.6rem;
+}
 
-	.system-news {
-		@include all.marpad($mar: 0 0 1rem 0);
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: 700 1.2rem 'Orbitron', sans-serif;
+  color: all.$white;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
 
-		.news-list {
-			@include all.fl($flexdir: column, $gap: 0.2rem);
-		}
+.label-dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: all.$imbiss-orange;
+  animation: pulse-glow 2s infinite;
 
-		.news-row,
-		.mini-job-item {
-			@include all.fl($alit: center, $gap: 0.5rem);
-			cursor: pointer;
-			transition: all 0.2s ease;
-			font-size: 1rem;
-			color: all.$white;
+  &.accent { background: all.$imbiss-teal; }
+}
 
-			&:hover {
-				background: rgba(all.$imbiss-orange, 0.3);
-			}
+.footer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
 
-			.dot,
-			.status-bar {
-				flex-shrink: 0;
+  &:hover {
+    background: rgba(all.$imbiss-orange, 0.08);
 
-				&.urgent-dot,
-				&.urgent {
-					background: #ff4444;
-					box-shadow: 0 0 0.5rem #ff4444;
-				}
-			}
+    .row-arrow { opacity: 1; transform: translateX(2px); }
+  }
+}
 
-			.dot {
-				@include all.size($w: 0.35rem, $h: 0.35rem);
-				background: all.$imbiss-orange;
-				animation: pulse-glow 2s infinite;
-			}
+.row-dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: rgba(all.$white, 0.25);
+  flex-shrink: 0;
 
-			.status-bar {
-				@include all.size($w: 0.1rem, $h: 0.6rem);
-				background: rgba(all.$white, 0.1);
-			}
+  &.urgent {
+    background: all.$imbiss-red;
+    box-shadow: 0 0 6px all.$imbiss-red;
+    animation: pulse-glow 1.5s infinite;
+  }
+}
 
-			.urgent-text {
-				color: #ff4444;
-				font-weight: bold;
-			}
-		}
-	}
+.row-text {
+  flex: 1;
+  font-size: 1rem;
+  color: all.$white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-	.system-jobs {
-		@include all.marpad($mar: 0 0 1rem 0);
+  &.urgent-text {
+    color: all.$imbiss-red;
+    font-weight: 700;
+  }
+}
 
-		.mini-job-item {
-			@include all.fl($alit: center, $gap: 0.5rem);
-			@include all.marpad($mar: 0 0 0.5rem 0);
-			cursor: pointer;
-			transition: all 0.2s ease;
-			font-size: 1rem;
-			color: all.$white;
+.row-arrow {
+  font-size: 0.9rem;
+  color: all.$imbiss-orange;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
 
-			&:hover {
-				background: rgba(all.$imbiss-orange, 0.3);
-			}
+.footer-divider {
+  height: 0.15rem;
+  background: all.$imbiss-border-dark;
+  margin: 0.5rem 0;
+}
 
-			.status-bar {
-				@include all.size($w: 0.1rem, $h: 0.6rem);
-				background: rgba(all.$white, 0.1);
-
-				&.urgent {
-					background: #ff4444;
-					box-shadow: 0 0 0.3rem #ff4444;
-				}
-			}
-		}
-	}
+.footer-copy {
+  font-size: 0.8rem;
+  color: all.$white;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  padding-top: 0.3rem;
 }

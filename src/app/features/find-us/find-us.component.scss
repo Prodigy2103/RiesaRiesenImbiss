@@ -10,7 +10,7 @@
 
 	.find-us-container {
 		@include all.size($w: 85dvw, $h: 85dvh);
-		@include all.marpad($pad: 3rem, $mar: 0);
+		@include all.marpad($pad: 2rem 3rem, $mar: 0);
 		@include all.borRad($c: rgba(255, 255, 255, 0.5), $radius: 1.6rem, $thick: 1px, $design: solid);
 		background: all.$imbiss-order-bg;
 		backdrop-filter: blur(1rem);
@@ -34,7 +34,7 @@
 	.feedback-row {
 		display: grid;
 		grid-template-columns: 1fr 1.5fr;
-		gap: 2rem; // Etwas reduziert für besseren Platz
+		gap: 2rem;
 
 		@media (max-width: 900px) {
 			grid-template-columns: 1fr;
@@ -67,7 +67,7 @@
 	}
 
 	.map-wrapper {
-		border-radius: 15px;
+		border-radius: 1rem;
 		overflow: hidden;
 		animation: slideInRightIframe 3.2s cubic-bezier(0.23, 1, 0.32, 1) both;
 		display: block;
@@ -75,19 +75,19 @@
 
 		iframe {
 			filter: invert(90%) hue-rotate(180deg) brightness(95%);
+			transition: filter 1s cubic-bezier(0.4, 0, 0.2, 1);
+			will-change: filter;
 
 			&:hover {
-				filter: none;
+				filter: invert(0%) hue-rotate(0deg) brightness(100%);
 			}
 		}
 	}
 
 	.feedback-form {
 		.star-rating {
-			display: flex;
-			align-items: center;
-			padding: 0 1rem 0 1rem;
-			margin-bottom: 1.5rem;
+			@include all.fl($alit: center);
+			@include all.marpad($mar: 0 0 1.5rem 0, $pad: 0rem 1rem);
 			background: all.$imbiss-light-grey;
 
 			.star {
@@ -111,11 +111,12 @@
 		}
 	}
 
-	.cyber-title, .cyber-subtitle {
+	.cyber-title,
+	.cyber-subtitle {
 		color: all.$imbiss-orange;
 		text-transform: uppercase;
-		border-left: 4px solid all.$imbiss-orange;
-		padding-left: 15px;
+		border-left: 0.25rem solid all.$imbiss-orange;
+		padding-left: 1rem;
 		margin-bottom: 0.8rem;
 	}
 
@@ -130,7 +131,7 @@
 			border: none;
 			border-bottom: 2px solid rgba(all.$white, 0.1);
 			color: all.$white;
-			padding: 12px;
+			padding: 0.8rem;
 			outline: none;
 
 			&:focus+.glow-line {

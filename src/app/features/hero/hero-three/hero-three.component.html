@@ -1,37 +1,47 @@
-<div class="hero-container">
-	<div class="welcome-text">
-		<h1 class="hero-title">AUTHENTISCH. FRISCH. <span class="highlight">RIESIG.</span></h1>
-		<div class="imbiss-image">
-			<p>
-				Wir sind Ihr Anlaufpunkt für authentische und leckere Spezialitäten. Ob saftiger Döner, knusprige
-				Pide,<br>
-				cremiger Kumpir oder würzige Tacos - bei Riesenimbiss in Riesa kommt jeder auf seinen Geschmack.<br> Wir
-				verwenden nur frische, hochwertige Zutaten, um Ihnen ein unvergessliches Geschmackserlebnis<br> zu
-				bieten.
-				Kommen Sie vorbei und überzeugen Sie sich selbst!
-			</p>
-			<img src="assets/img/imbiss.webp" alt="Bild vom Riesenimbiss Riesa">
-		</div>
-		<div class="second-images">
-			<img src="assets/img/imbiss_plate.webp" alt="Speisenauswahl">
-			<img src="assets/img/imbiss_doener.webp" alt="Doener">
-		</div>
-		<div class="btn-container">
+<section class="hero">
+
+	<div class="hero-content">
+		<div class="badge">🔥 Riesa's #1 Imbiss</div>
+
+		<h1 class="hero-title">
+			<span class="line-top">AUTHENTISCH.</span>
+			<span class="line-mid">FRISCH.</span>
+			<span class="line-bot highlight">RIESIG.</span>
+		</h1>
+
+		<p class="hero-desc">
+			Döner, Pide, Kumpir & Tacos — handgemacht mit frischen Zutaten.
+			Täglich ab 11 Uhr in Riesa.
+		</p>
+
+		<div class="hero-actions">
 			<app-neon-button variant="primary" (click)="goToOrder()">
-				Bestellen
+				Jetzt bestellen →
 			</app-neon-button>
-		</div>
-	</div>
-
-	<div class="entry-wrapper">
-		<div class="logo-container" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()"
-			[style.transform]="'rotateX(' + current.rx + 'deg) rotateY(' + current.ry + 'deg)'">
-
-			<div class="shine" [style.--mx.%]="current.mx" [style.--my.%]="current.my"></div>
-
-			<div class="logo-card">
-				<img src="assets/img/Logo_riesenImbiss_Font12.png" alt="Logo" class="hero-logo">
+			<div class="hero-stats">
+				<div class="stat"><span class="stat-num">15+</span><span class="stat-label">Gerichte</span></div>
+				<div class="stat-divider"></div>
+				<div class="stat"><span class="stat-num">100%</span><span class="stat-label">Frisch</span></div>
+				<div class="stat-divider"></div>
+				<div class="stat"><span class="stat-num">★ 4.8</span><span class="stat-label">Rating</span></div>
 			</div>
 		</div>
 	</div>
-</div>
+
+	<!-- Rechte Seite: 3D Logo-Karte -->
+	<div class="hero-visual">
+		<div class="logo-card-wrap" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()"
+			[style.transform]="'perspective(800px) rotateX(' + current.rx + 'deg) rotateY(' + current.ry + 'deg)'">
+
+			<div class="card-glow"></div>
+			<div class="shine" [style.--mx.%]="current.mx" [style.--my.%]="current.my"></div>
+
+			<div class="card-inner">
+				<img src="assets/img/Logo_riesenImbiss_Font12.png" alt="Riesenimbiss Logo" class="hero-logo" />
+				<div class="card-tag">EST. RIESA</div>
+			</div>
+		</div>
+
+	</div>
+
+</section>

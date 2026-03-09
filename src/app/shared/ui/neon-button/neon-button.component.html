@@ -1,4 +1,7 @@
 <button class="neon-btn" [class.primary]="variant() === 'primary'" [class.ghost]="variant() === 'ghost'"
 	[class.danger]="variant() === 'danger'" [disabled]="disabled()">
-	<ng-content />
+	<span class="btn-content">
+		<ng-content />
+	</span>
+	<span class="btn-shine"></span>
 </button>

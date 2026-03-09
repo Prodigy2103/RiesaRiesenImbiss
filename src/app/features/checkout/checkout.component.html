@@ -1,1 +1,100 @@
-<p>checkout works!</p>
+<div class="checkout-container">
+
+	<div class="success-header">
+		<div class="check-icon">✓</div>
+		<h1>Vielen Dank für deine Bestellung!</h1>
+		<p>Deine Bestellung wird gerade frisch zubereitet.</p>
+	</div>
+
+	<div class="status-stepper">
+		@for (step of statusSteps; track step.id) {
+		<div class="step" [class.active]="currentStatus === step.id" [class.completed]="currentStatus > step.id">
+
+			<div class="step-icon">
+				<i [class]="step.icon"></i>
+			</div>
+
+			<div class="step-label">{{ step.label }}</div>
+
+			@if (!$last) {
+			<div class="step-line"></div>
+			}
+		</div>
+		}
+	</div>
+
+	<div class="info-grid">
+
+		<div class="info-card">
+			<h3>Lieferdetails</h3>
+
+			<p><strong>Name:</strong> {{ order.customer().name }}</p>
+
+			@if (order.deliveryType() === 'delivery') {
+			<p><strong>Adresse:</strong> {{ order.customer().address }}</p>
+			} @else {
+			<p><strong>Typ:</strong> Selbstabholung</p>
+			}
+
+			<p><strong>Telefon:</strong> {{ order.customer().phone }}</p>
+
+			<div class="time-highlight" style="margin-top: 20px;">
+				<p>
+					<span>
+						{{ order.deliveryType() === 'delivery'
+						? 'Voraussichtliche Lieferung'
+						: 'Voraussichtliche Abholung' }}
+					</span><br>
+					<strong>{{ estimatedTime }} Uhr</strong>
+				</p>
+			</div>
+		</div>
+
+		<div class="info-card">
+			<h3>Deine Bestellung</h3>
+
+			<div class="order-items">
+				@for (item of order.items(); track $index) {
+				<div class="line-item">
+					<span>{{ item.name }}</span>
+					<span>{{ item.price | number:'1.2-2' }} €</span>
+				</div>
+				}
+
+				@for (extra of order.extras(); track extra.id) {
+				<div class="line-item extra">
+					<span>+ {{ extra.name }}</span>
+					<span>{{ extra.price | number:'1.2-2' }} €</span>
+				</div>
+				}
+			</div>
+
+			<div class="total-summary" style="margin-top: 15px;">
+				<div class="total-row">
+					<span>Zwischensumme</span>
+					<span>{{ order.total() | number:'1.2-2' }} €</span>
+				</div>
+
+				@if (order.deliveryType() === 'delivery') {
+				<div class="total-row">
+					<span>Liefergebühr</span>
+					<span>{{ order.deliveryFee() | number:'1.2-2' }} €</span>
+				</div>
+				}
+
+				<div class="total-row final">
+					<span>Gesamtbetrag</span>
+					<strong>{{ order.finalTotal() | number:'1.2-2' }} €</strong>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="checkout-footer">
+		<button class="btn-new-order" routerLink="/order" (click)="newOrder()">
+			Neue Bestellung aufgeben
+		</button>
+	</div>
+
+</div>

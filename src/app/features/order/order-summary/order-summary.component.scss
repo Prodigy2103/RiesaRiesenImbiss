@@ -40,13 +40,21 @@
 			}
 
 			.summary-row {
-				@include all.fl($jc: space-between, $alit: center);
+				@include all.fl($jc: space-between, $alit: center, $gap: 3rem);
 				background: rgba(all.$white, 0.05);
 				padding: 1rem;
 				border-radius: 12px;
 				border: 1px solid rgba(all.$white, 0.1);
 
 				.item-info {
+					background: rgba(0, 0, 0, 0.59);
+					width: 100%;
+					padding: 0.3rem;
+					border-radius: 0.8rem;
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+
 					.qty {
 						background: rgba(all.$imbiss-orange, 0.2);
 						color: all.$imbiss-orange;
@@ -61,24 +69,20 @@
 					}
 				}
 
+				.item-price {
+					font-weight: bold;
+					color: all.$white;
+					width: 100%;
+					min-width: 4rem;
+					text-align: center;
+				}
+
 				.item-controls {
 					@include all.fl($alit: center);
 					gap: 1rem;
-
-					.control-btn {
-						background: rgba(all.$white, 0.1);
-						border: 1px solid all.$imbiss-orange;
-						color: all.$white;
-						width: 30px;
-						height: 30px;
-						border-radius: 50%;
-						cursor: pointer;
-						transition: 0.3s;
-
-						&:hover {
-							background: all.$imbiss-orange;
-						}
-					}
+					background: rgba(0, 0, 0, 0.59);
+					padding: 0.3rem;
+					border-radius: 0.8rem;
 				}
 			}
 		}
@@ -90,7 +94,7 @@
 			flex-direction: column;
 			min-height: 30dvh;
 			gap: 1rem;
-			background: rgba(0, 0, 0, 0.1);
+			background: rgba(0, 0, 0, 0.59);
 			padding: 0.5rem;
 			border-radius: 15px;
 
@@ -110,7 +114,13 @@
 					border: 1px solid rgba(255, 255, 255, 0.2);
 					padding: 0.8rem;
 					border-radius: 8px;
-					color: white;
+					caret-color: all.$imbiss-orange;
+					color-scheme: dark;
+
+					&:not(:placeholder-shown) {
+						color: all.$white;
+						border-color: rgba(255, 255, 255, 0.5);
+					}
 
 					&:focus {
 						border-color: all.$imbiss-orange;
@@ -149,6 +159,12 @@
 				font-weight: 900;
 			}
 		}
+	}
+
+	app-neon-button[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+		filter: grayscale(1); // Macht den Button grau, wenn er gesperrt ist
 	}
 }
 

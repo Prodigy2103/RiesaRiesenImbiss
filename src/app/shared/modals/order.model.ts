@@ -15,13 +15,13 @@ export interface Category {
  * Why: Core interface for the shopping cart and product lists.
  */
 export interface OrderItem {
-    id: number;
+    id: string;
     name: string;
     category: string;
     price: number;
     imgPath?: string;
     quantity?: number;
-    ingredients?: (string | number)[];
+    ingredients?: string[];
 }
 
 /**
@@ -32,4 +32,10 @@ export interface CustomerData {
     name: string;
     address: string;
     phone: string;
+}
+
+export interface IngredientDetail {
+    id: number | string;
+    name: string;
+    detail: string;
 }

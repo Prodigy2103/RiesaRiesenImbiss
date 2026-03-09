@@ -1,119 +1,136 @@
-/* #region imports */
 @use '../../../../../public/styles/all_styles.scss' as all;
-/* #endregion */
 
-/* #region :host */
 :host {
-	@include all.absolute($pos: sticky, $top: 0);
-	@include all.size($w: 100%, $h: 10dvh);
-	@include all.fl($alit: center, $jc: end);
+	display: block;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	height: 10dvh;
+	z-index: 100;
+}
+
+.top-bar {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	padding: 0 2rem;
 	background: linear-gradient(to bottom, #161b22 0%, all.$imbiss-orange 100%);
-	backdrop-filter: blur(12px);
-	border-bottom: none;
-	box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.8);
-	transition: all 0.3s ease-in-out;
+	backdrop-filter: blur(20px);
+	border-bottom: 1px solid rgba(all.$imbiss-orange, 0.2);
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+	box-sizing: border-box;
+}
 
-	@include all.tablet {
-		// padding: 0.8rem;
-	}
+.top-bar-left {
+	display: flex;
+	align-items: end;
+	gap: 0.8rem;
+}
 
-	&.scrolled {
-		background: rgba(10, 10, 10, 0.98);
-		border-bottom: 1px solid rgba(all.$imbiss-orange, 0.4);
-	}
+.logo-pill {
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 2px solid rgba(all.$imbiss-orange, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(all.$imbiss-orange, 0.08);
 
-	/* #region header */
-	header {
-		@include all.fl($alit: center, $jc: flex-end);
+	img {
 		width: 100%;
-
-		@include all.tablet {
-			justify-content: space-between;
-			padding: 1rem;
-			gap: 1rem;
-		}
-
-		.header-logo {
-			display: none;
-
-			@include all.tablet {
-				display: flex;
-				justify-content: space-between;
-			}
-
-			img {
-				width: 5rem;
-				margin-left: 2rem;
-				filter: drop-shadow(0.05rem 0.05rem 0.2rem all.$white);
-
-				@include all.tablet {
-					margin-left: 0.5rem;
-				}
-			}
-		}
-
-		/* #endregion */
-
-		/* #region navigation */
-		nav ul {
-			@include all.fl($gap: 1rem);
-			@include all.marpad();
-			list-style: none;
-			width: 50%;
-
-			@include all.notebook {
-				width: 100%;
-				text-align: end;
-				@include all.fl($gap: 0.5rem);
-			}
-
-			@media(max-width: 780px) {
-				@include all.fl($flexdir: column);
-			}
-
-			li {
-				width: fit-content;
-				min-width: 10dvw;
-			}
-
-			a {
-				@include all.marpad($pad: 0.2rem 0);
-				position: relative;
-				text-decoration: none;
-				text-transform: uppercase;
-				color: all.$white;
-				text-shadow: 0.3rem 0.3rem 0.6rem all.$imbiss-dark;
-				font: 600 1rem 'Orbitron', sans-serif;
-				transition: color 0.5s ease;
-				display: block;
-				width: 100%;
-				min-width: 10dvw;
-
-				@media(max-width: 1100px) {
-					min-width: 14dvw;
-					padding-right: 1rem;
-				}
-
-				&::after {
-					content: '';
-					@include all.absolute($left: 0, $bottom: 0);
-					@include all.size($w: 0, $h: 0.1rem);
-					background: all.$imbiss-orange;
-					box-shadow: 0 0 8px all.$imbiss-orange;
-					transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-				}
-
-				&:hover {
-
-					&::after {
-						width: 85%;
-					}
-				}
-			}
-		}
-
-		/* #endregion */
+		height: 100%;
+		object-fit: cover;
 	}
 }
 
-/* #endregion */
+.brand-text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+
+.brand-name {
+	font: 800 1rem 'Orbitron', sans-serif;
+	color: all.$white;
+	letter-spacing: 0.05rem;
+}
+
+.brand-accent {
+	color: all.$imbiss-orange;
+}
+
+.brand-sub {
+	font-size: 0.65rem;
+	color: all.$text-muted;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+}
+
+.top-nav {
+	display: flex;
+	align-items: center;
+	gap: 1.2rem;
+}
+
+.nav-link {
+	font: 600 0.8rem 'Orbitron', sans-serif;
+	color: rgba(all.$white, 0.6);
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 0.08rem;
+	transition: color 0.2s ease;
+
+	&:hover {
+		color: all.$imbiss-orange;
+	}
+}
+
+.nav-sep {
+	color: rgba(all.$white, 0.2);
+	font-size: 1rem;
+}
+
+.status-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.4rem 0.8rem;
+	border-radius: 2rem;
+	background: rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	font-size: 0.8rem;
+
+	&.open .status-dot {
+		background: #4ade80;
+		animation: pulse-green 2s infinite;
+	}
+
+	&.closing-soon {
+		color: #ffca28;
+		border-color: rgba(255, 202, 40, 0.3);
+
+		.status-dot {
+			background: #ffca28;
+			animation: pulse-orange 1.5s infinite;
+		}
+	}
+
+	&.closed {
+		opacity: 0.8;
+
+		.status-dot {
+			background: #f87171;
+		}
+	}
+}
+
+.status-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+}

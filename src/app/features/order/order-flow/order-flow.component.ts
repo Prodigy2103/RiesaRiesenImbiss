@@ -2,7 +2,7 @@ import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../../shared/services/order.service';
-import { OrderItem, Category } from '../../../shared/modals/order.model';
+import { OrderItem, Category, IngredientDetail } from '../../../shared/modals/order.model';
 import { EXTRAS_LIST } from '../../../shared/modals/extras.data';
 import { NeonButtonComponent } from '../../../shared/ui/neon-button/neon-button.component';
 import { DataService } from '../../../shared/services/data.services';
@@ -21,81 +21,69 @@ export class OrderFlowComponent {
   public dataService = inject(DataService);
   private router = inject(Router);
 
+  // State
   menuItems = this.dataService.getItems();
   categories = this.dataService.getCategories();
-  selectedItem = signal<OrderItem | null>(null);
   extrasList = EXTRAS_LIST;
 
+  selectedItem = signal<OrderItem | null>(null);
+  // NEU: Signal hält jetzt ein Array für die Listenansicht im Modal
+  selectedIngredientInfo = signal<IngredientDetail[] | null>(null);
+
   selectedCategoryLabel = computed(() => {
-    const allCats = this.categories() as Category[];
-    return allCats.find((c) => c.key === this.order.category())?.label || 'Menü';
+    const currentKey = this.order.category();
+    return (this.categories() as Category[]).find(c => c.key === currentKey)?.label || 'Menü';
   });
 
   filteredItems = computed(() => {
-    const cat = this.order.category()?.toLowerCase();
-    return cat ? this.menuItems().filter((i) => i.category?.toLowerCase() === cat) : [];
+    const key = this.order.category()?.toLowerCase();
+    return key ? this.menuItems().filter(i => i.category?.toLowerCase() === key) : [];
   });
 
   /**
-   * Updates the selected category and advances to the next step.
-   * Why: Prevents navigation if an info link was clicked to allow separate actions.
-   * @param catKey The unique identifier for the chosen category.
-   * @param event The interaction event to check for sub-elements.
+   * Öffnet das Modal mit ALLEN Inhaltsstoffen gleichzeitig (als Array).
    */
   passCategory(catKey: string, event: Event): void {
-    if ((event.target as HTMLElement).closest('.info-link')) return;
+    event.stopPropagation();
     this.order.category.set(catKey);
     this.order.next();
   }
 
-  /**
-   * Navigates to the ingredient details page for a specific term.
-   * Why: Provides deep-dive information for users interested in allergens or sources.
-   */
-  navigateToDetail(wort: string, event: Event): void {
-    event.preventDefault();
+  showAllIngredients(identifiers: string[] | undefined, event: Event): void {
     event.stopPropagation();
-    this.router.navigate(['/ingredients-sauce', wort.trim()]);
+
+    const ids = identifiers ?? [];
+    if (ids.length === 0) return;
+
+    const details: IngredientDetail[] = ids.map(id => {
+      const found = this.dataService.getIngredient(id);
+      return found ?? ({ id, name: id, detail: 'Basis-Zutat.' } as IngredientDetail);
+    });
+
+    this.selectedIngredientInfo.set(details);
   }
 
-  /**
-   * Splits a text string into segments based on a delimiter.
-   * Why: Used to identify specific keywords for dynamic linking in the UI.
-   */
-  getDescriptionParts(text: string): string[] {
-    return text ? text.split('#') : [];
+  getIngredients(data: string | string[] | undefined): string[] {
+    if (!data) return [];
+    const text = Array.isArray(data) ? data.join(', ') : data;
+    return text.split(',').map(s => s.trim()).filter(s => s.length > 0);
   }
 
-  /**
-   * Checks if a part of the description should be treated as a link.
-   * Why: Implements a simple pattern where every second element is a keyword.
-   */
-  isLink(index: number): boolean {
-    return index % 2 !== 0;
+  openExtras(item: OrderItem, event: Event): void {
+    event.stopPropagation(); // Verhindert Bubbling
+    this.selectedItem.set(item);
   }
 
-  /**
-   * Updates the global order service with selected or removed extras.
-   * Why: Keeps the temporary extras selection in sync with the order state.
-   */
   toggleExtra(extra: OrderItem, event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     isChecked ? this.order.addExtra(extra) : this.order.removeExtraById(extra.id);
   }
 
-  /**
-   * Finalizes the current item selection and adds it to the cart.
-   * Why: Commits the user's customized item to the main order state.
-   */
   confirmOrder(): void {
     if (this.selectedItem()) this.order.addItem(this.selectedItem()!);
     this.cancelSelection();
   }
 
-  /**
-   * Clears the current selection and resets temporary extras.
-   * Why: Ensures the UI returns to a clean state after closing a modal.
-   */
   cancelSelection(): void {
     this.selectedItem.set(null);
     this.order.resetExtras();

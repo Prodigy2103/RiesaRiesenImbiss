@@ -1,20 +1,13 @@
-<!-- #region main-header -->
-<header>
+<header class="top-bar">
 
-	<!-- #region header-logo -->
-	<div class="header-logo">
-		<img src="assets/img/Logo_riesenImbiss_riese503.png" alt="Riesenimbiss Logo" />
-	</div>
-	<!-- #endregion -->
-
-	<!-- #region navigation -->
-	<nav>
-		<ul>
-			<li><a href="">Privacy Policy</a></li>
-			<li><a href="">Legal Notice</a></li>
-		</ul>
+	<nav class="top-nav">
+		<a href="#" class="nav-link">Datenschutz</a>
+		<span class="nav-sep">·</span>
+		<a href="#" class="nav-link">Impressum</a>
+		<div class="status-chip" [ngClass]="currentStatus">
+			<span class="status-dot"></span>
+			<span>{{ statusText }}</span>
+		</div>
 	</nav>
-	<!-- #endregion -->
 
 </header>
-<!-- #endregion -->

@@ -1,6 +1,6 @@
 <div id="orderflow-summary">
     <div class="step-header">
-        <app-neon-button variant="ghost" (click)="order.back()">←</app-neon-button>
+        <app-neon-button variant="primary" (click)="order.back()">←</app-neon-button>
         <h2>Zusammenfassung</h2>
     </div>
     <div class="summary-container">
@@ -27,9 +27,9 @@
                 </div>
 
                 <div class="item-controls">
-                    <button class="control-btn" (click)="order.decrementQuantity($index)">−</button>
+                    <app-neon-button variant="primary" (click)="order.decrementQuantity($index)">-</app-neon-button>
                     <span class="item-price">{{ (item.price * item.quantity) | number:'1.2-2' }} €</span>
-                    <button class="control-btn" (click)="order.incrementQuantity($index)">+</button>
+                    <app-neon-button variant="primary" (click)="order.incrementQuantity($index)">+</app-neon-button>
                 </div>
             </div>
             }
@@ -40,17 +40,22 @@
                 <div class="customer-form">
                     <div class="input-group">
                         <label>Name</label>
-                        <input type="text" [(ngModel)]="customerName" placeholder="Dein Name" />
+                        <input type="text" [(ngModel)]="customer.name" (ngModelChange)="saveData()"
+                            [style.color]="customer.name ? 'white' : 'rgba(255,255,255,0.4)'" placeholder="Dein Name" />
                     </div>
                     @if (order.deliveryType() === 'delivery') {
                     <div class="input-group">
                         <label>Adresse</label>
-                        <input type="text" [(ngModel)]="customerAddress" placeholder="Straße, Hausnummer, PLZ" />
+                        <input type="text" [(ngModel)]="customer.address" (ngModelChange)="saveData()"
+                            [style.color]="customer.address ? 'white' : 'rgba(255,255,255,0.4)'"
+                            placeholder="Straße, Hausnummer, PLZ" />
                     </div>
                     }
                     <div class="input-group">
                         <label>Telefon</label>
-                        <input type="tel" [(ngModel)]="customerPhone" placeholder="Für Rückfragen" />
+                        <input type="tel" [(ngModel)]="customer.phone" (ngModelChange)="saveData()"
+                            [style.color]="customer.phone ? 'white' : 'rgba(255,255,255,0.4)'"
+                            placeholder="Für Rückfragen" />
                     </div>
                 </div>
                 <div class="delivery-toggle">
@@ -71,10 +76,12 @@
                 Gesamt: <span>{{ order.finalTotal() | number:'1.2-2' }} €</span>
             </h3>
         </div>
-        <app-neon-button class="submit-btn"
-            [disabled]="!customerName || !customerPhone || (order.deliveryType() === 'delivery' && !customerAddress)"
-            (click)="submitOrder()">
-            Bestellung abschicken
-        </app-neon-button>
+        <div class="actions">
+            <app-neon-button variant="primary"
+                [disabled]="!customer.name.trim() || !customer.address.trim() || !customer.phone.trim()"
+                (click)="submitOrder()">
+                Jetzt zahlungspflichtig bestellen
+            </app-neon-button>
+        </div>
     </div>
 </div>

@@ -21,20 +21,31 @@ export class OrderSummaryComponent {
   private router = inject(Router);
 
   extrasList = EXTRAS_LIST;
-  customerName = '';
-  customerAddress = '';
-  customerPhone = '';
+  // Hier das Objekt erstellen, das im HTML gesucht wird:
+  customer = {
+    name: '',
+    address: '',
+    phone: ''
+  };
 
-  /**
-   * Finalizes the order by passing customer data to the service and navigating.
-   * Why: Connects user input with the checkout process and ensures data persistence.
-   */
+  saveData() {
+    localStorage.setItem('imbiss_customer', JSON.stringify(this.customer));
+  }
+
+  ngOnInit() {
+    const saved = localStorage.getItem('imbiss_customer');
+    if (saved) this.customer = JSON.parse(saved);
+  }
+
+
   submitOrder(): void {
-    this.order.complete({ 
-      name: this.customerName, 
-      address: this.customerAddress, 
-      phone: this.customerPhone 
-    });
+    const isInvalid = !this.customer.name.trim() ||
+      (this.order.deliveryType() === 'delivery' && !this.customer.address.trim()) ||
+      !this.customer.phone.trim();
+
+    if (isInvalid) return;
+
+    this.order.complete(this.customer);
     this.router.navigate(['/checkout']);
   }
 }

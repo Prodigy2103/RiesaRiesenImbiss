@@ -77,8 +77,8 @@ export class HeroThreeComponent implements OnInit {
   /**
    * Navigates to the order page.
    */
-  goToOrder() { 
+  goToOrder() {
     this.order.step.set(1);
-    this.router.navigate(['/order']); 
+    this.router.navigate(['/order']);
   }
 }

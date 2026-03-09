@@ -1,12 +1,34 @@
-<div class="logo">
-    <img src="assets/img/Logo_riesenImbiss_riese503.png" alt="Riesenimbiss Logo" />
+<div class="sidebar-logo">
+    <img src="assets/img/Wasiri3d 1.webp" alt="Riesenimbiss Logo" />
+    <div class="logo-ring"></div>
 </div>
 
-<nav class="sidebar">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a routerLink="/order" routerLinkActive="active">Bestellen</a>
-    <a routerLink="/find-us" routerLinkActive="active">Find Us</a>
-    <a routerLink="/ingredients-sauce" routerLinkActive="active">Ingredients</a>
+<div class="brand-text">
+    <span class="brand-name">RIESEN<span class="brand-accent">IMBISS</span></span>
+    <span class="brand-sub">Riesa · Seit 2025</span>
+</div>
+
+<nav class="sidebar-nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+        <span class="nav-indicator"></span>
+    </a>
+    <a routerLink="/order" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Bestellen</span>
+        <span class="nav-indicator"></span>
+    </a>
+    <a routerLink="/find-us" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">📍</span>
+        <span class="nav-label">Find Us</span>
+        <span class="nav-indicator"></span>
+    </a>
+    <a routerLink="/ingredients-sauce" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">🌿</span>
+        <span class="nav-label">Zutaten</span>
+        <span class="nav-indicator"></span>
+    </a>
 </nav>
 
 <app-footer></app-footer>
